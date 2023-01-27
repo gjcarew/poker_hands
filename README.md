@@ -43,3 +43,14 @@ Initial thoughts are to have all 'belongs to' relationships: A card belongs to a
 The best way to get the data from the text file into the Postgres database is most likely through a custom rake task since it is a one-off thing. 
 
 For the time being, I would use a runner file to find the final solution for how many wins player one has. 
+
+### To do 
+- [ ] Create migrations and models
+
+- [ ] Create relationships
+
+- [ ] Write a custom rake task to seed the DB with the hands, cards, hands, etc.
+
+- [ ] Create model methods to compare hands
+
+- [ ] Create runner file
