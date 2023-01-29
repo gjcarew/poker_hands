@@ -6,10 +6,19 @@ namespace :poker do
 
     File.foreach("lib/assets/poker.txt") do |line|
       cards_arr = line.split(' ')
-      round = Round.create!()
-      p1_hand = round.hands.create!(player: player1)
-      
+      round = Round.create!
 
+      p1_hand = round.hands.create!(player: player1)
+      cards_arr[0..4].each do |card_txt|
+        p1_hand.cards << Card.find_or_create_by(txt: card_txt)
+      end
+
+      p2_hand = round.hands.create!(player: player2)
+      cards_arr[5..9].each do |card_txt|
+        p2_hand.cards << Card.find_or_create_by(txt: card_txt)
+      end
+
+      round.find_winner
     end
   end
 

@@ -45,11 +45,11 @@ The best way to get the data from the text file into the Postgres database is mo
 For the time being, I would use a runner file to find the final solution for how many wins player one has. 
 
 ### To do 
-- [ ] Create migrations and models
+- [x] Create migrations and models
 
-- [ ] Create relationships
+- [x] Create relationships
 
-- [ ] Write a custom rake task to seed the DB with the hands, cards, hands, etc.
+- [x] Write a custom rake task to seed the DB with the hands, cards, hands, etc.
 
 - [ ] Create model methods to compare hands
 
