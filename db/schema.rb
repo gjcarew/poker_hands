@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_29_015501) do
+ActiveRecord::Schema.define(version: 2023_01_29_034439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2023_01_29_015501) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "hand_id"
+    t.string "txt"
     t.index ["hand_id"], name: "index_cards_on_hand_id"
   end
 
