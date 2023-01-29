@@ -36,13 +36,11 @@ _____________________
 
 ## Initial thoughts
 
-This should be a rails app to take advantage of a PostgreSQL database and the ActiveRecord ORM. Extensibility was one of the suggested criteria, and this seems like it would allow for easier creation of statistics, analysis of hands, additional players, etc. 
-
-Initial thoughts are to have all 'belongs to' relationships: A card belongs to a hand, and hand belongs to a player, there are two hands per round. 
+This should be a rails app to take advantage of a PostgreSQL database and the ActiveRecord ORM. Extensibility was one of the suggested criteria, and this seems like it would allow for easier creation of statistics, analysis of hands, additional players, etc. Ideally you could make a full on poker website with this backend (once some endpoints were created.)
 
 The best way to get the data from the text file into the Postgres database is most likely through a custom rake task since it is a one-off thing. 
 
-For the time being, I would use a runner file to find the final solution for how many wins player one has. 
+There can also be a rake task to get the number of wins player one had. 
 
 ### To do 
 - [x] Create migrations and models
@@ -54,3 +52,37 @@ For the time being, I would use a runner file to find the final solution for how
 - [ ] Create model methods to compare hands
 
 - [ ] Create runner file
+
+## Finding a winner
+
+The next task is finding the most efficient way to traverse the possible win conditions. You could check in order from a royal flush to high card on every hand, but a royal flush will almost never happen and you'll be checking every time. As a matter of fact, it doesn't make sense to have ANY special checks for a royal flush, since straight flushes are won based on the highest card anyways - a royal flush is just a straight flush with an Ace high card.
+
+There are four basic winning hands you could have: 
+- 'flush' type: Has the word flush in the name 
+- 'straight' type: Rank is sequential
+- 'duplicate' type: pairs and three-of-a-kinds, there will be more than one of each rank of card in the hand
+- High card
+
+It seems that you need to separate this into a tree where the statistically most likely outcomes (high card, pair) require traversing the fewest nodes possible. Here's a basic diagram of what I'm thinking:
+```
+                            Is it a flush?
+                             /      \
+                            no        yes
+                            |           \
+                            |           straight?
+                            |              / \
+                            |             no   yes
+                            |             /       \
+                            |          Flush      Straight flush
+                            |
+                    Highest # of duplicates:
+        4               3                 2                         1
+       /                |                   \                        \ 
+Four of a kind     Is there a pair?         Another pair?            Is it a straight?
+                      /   \                         / \                    /  \ 
+                    yes    no                     No   Yes               yes   no  
+                   /         \                    |      \               /       \
+              Full house    Three of a kind      Pair    Two pair     Straight    High card wins
+```
+
+To be thorough, each of these endpoints is going to need also going to need a tiebreaker. Luckily only full house, three of a kind, and pair need special treatment, for all other outcomes the highest card wins
