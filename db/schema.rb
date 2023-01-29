@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_27_005556) do
+ActiveRecord::Schema.define(version: 2023_01_29_015501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,32 @@ ActiveRecord::Schema.define(version: 2023_01_27_005556) do
     t.integer "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "hand_id"
+    t.index ["hand_id"], name: "index_cards_on_hand_id"
   end
 
+  create_table "hands", force: :cascade do |t|
+    t.bigint "player_id"
+    t.bigint "round_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_hands_on_player_id"
+    t.index ["round_id"], name: "index_hands_on_round_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer "winner"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "cards", "hands"
+  add_foreign_key "hands", "players"
+  add_foreign_key "hands", "rounds"
 end
