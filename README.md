@@ -102,3 +102,7 @@ Each hand will need to have a hand rank, then a tiebreaker condition. So to find
 | Two pair | Value of high pair, value of low pair, value of remaining card| |
 | Pair | Value of pair, value of remaining cards | |
 | High card | Same as a flush | |
+
+## Comparing hands
+
+The best hand will be reported as an array, with the rank of the hand (straight, flush, etc.) corresponding to an integer, and the tiebreaker conditions as subsequent integers. Then there will be a comparison of the rank through all the tiebreaker conditions until a winner is acheived. 
