@@ -3,8 +3,9 @@ namespace :poker do
   task load_from_txt: :environment do
     player1 = Player.create!(name: 'Player 1')
     player2 = Player.create!(name: 'Player 2')
+    puts 'Loading data...'
 
-    File.foreach("lib/assets/poker.txt") do |line|
+    File.foreach('lib/assets/poker.txt') do |line|
       cards_arr = line.split(' ')
       round = Round.create!
 
@@ -20,10 +21,12 @@ namespace :poker do
 
       round.find_winner
     end
+    puts 'Text file loaded to database'
   end
 
-  desc "How many wins does player 1 have?"
+  desc 'How many wins does player 1 have?'
   task winner: :environment do
+    puts Round.where(winner: 1).count
   end
 
 end
