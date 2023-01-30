@@ -85,4 +85,20 @@ Four of a kind     Is there a pair?         Another pair?            Is it a str
               Full house    Three of a kind      Pair    Two pair     Straight    High card wins
 ```
 
-To be thorough, each of these endpoints is going to need also going to need a tiebreaker. Luckily only full house, three of a kind, and pair need special treatment, for all other outcomes the highest card wins
+To be thorough, each of these endpoints is going to need also going to need a tiebreaker. Luckily only full house, three of a kind, and pair need special treatment, for all other outcomes the highest card wins.
+
+### Tied hands
+
+Each hand will need to have a hand rank, then a tiebreaker condition. So to find a winner, first the rank of the hand will be compared, then the tiebreaker condition.
+
+| Hand	 |	Tiebreaker condition	| 	Explanation	| 
+| ------ |------------- | ------------- | 
+| Straight flush |	High card | Since cards are consecutive, only one card is needed for the tiebreaker |
+| Four of a kind |	Value of one of the four | Since there are only four in the deck, this can't be a tie |
+| Full house | Value of one of the three | See above explanation |
+| Flush | All cards, high to low | Any cards could make up a flush |
+| Straight| High card | See straight flush |
+| Three of a kind | Value of one of the three | See above explanation |
+| Two pair | Value of high pair, value of low pair, value of remaining card| |
+| Pair | Value of pair, value of remaining cards | |
+| High card | Same as a flush | |
