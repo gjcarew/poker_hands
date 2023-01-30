@@ -3,14 +3,14 @@ class Round < ApplicationRecord
   has_many :players, through: :hands
 
   def find_winner
+    ranked_hands = hands.map(&:rank)
+    i = 0
+    ranked_hands.length.times do
+      update(winner: 1) if ranked_hands[0][i] > ranked_hands[1][i]
+      update(winner: 2) if ranked_hands[0][i] < ranked_hands[1][i]
+      break unless winner.nil?
 
-  end
-
-  def straight?
-    cards.order(:value).each_cons(2).all? {|a, b| b.value == a.value + 1 }
-  end
-
-  def flush?
-    cards[1..-1].all? { |card| card.suit == cards[0].suit }
+      i += 1
+    end
   end
 end
