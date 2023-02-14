@@ -34,6 +34,12 @@ How many hands does Player 1 win?
 
 _____________________
 
+## Running the program
+
+Clone the repo, and install missing gems with `bundle install`. Then run `bundle exec rake db:{create,migrate}` to start the database.
+
+Custom rake tasks find the winner. The first rake task loads 1000 hands from a text file into the database. It can be invoked with `bundle exec rake poker:load_from_text` and the number of rounds won by player 1 can be found with `bundle exec rake poker:winner`.
+
 ## Initial thoughts
 
 This should be a rails app to take advantage of a PostgreSQL database and the ActiveRecord ORM. Extensibility was one of the suggested criteria, and this seems like it would allow for easier creation of statistics, analysis of hands, additional players, etc. Ideally you could make a full on poker website with this backend (once some endpoints were created.)
